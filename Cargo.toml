@@ -1,0 +1,14 @@
+[workspace]
+members = ["server", "client", "wasm_runner"]
+resolver = "2"
+
+[patch.crates-io]
+wasmparser = { git = "https://github.com/bytecodealliance/wasm-tools", rev="4e37f73e"}
+wasmprinter = { git = "https://github.com/bytecodealliance/wasm-tools", rev="4e37f73e"}
+wit-parser = { git = "https://github.com/bytecodealliance/wasm-tools", rev="4e37f73e"}
+
+[patch."file:///Users/bytedance/git/wasip3-prototyping"]
+wasmparser = { git = "https://github.com/bytecodealliance/wasm-tools", rev="4e37f73e"}
+wasmprinter = { git = "https://github.com/bytecodealliance/wasm-tools", rev="4e37f73e"}
+wit-parser = { git = "https://github.com/bytecodealliance/wasm-tools", rev="4e37f73e"}
+

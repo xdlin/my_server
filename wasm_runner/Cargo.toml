@@ -1,0 +1,13 @@
+[package]
+name = "wasm-runner"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wasmtime = { git = "file:///Users/bytedance/git/wasip3-prototyping", features = ["component-model-async"] }
+wasmtime-wasi = { git = "file:///Users/bytedance/git/wasip3-prototyping"}
+wasmparser = { git = "https://github.com/bytecodealliance/wasm-tools", rev="4e37f73e"}
+wasmprinter = { git = "https://github.com/bytecodealliance/wasm-tools", rev="4e37f73e"}
+wit-parser = { git = "https://github.com/bytecodealliance/wasm-tools", rev="4e37f73e"}
+tokio = { version = "1", features = ["full"] }
+anyhow = "*"

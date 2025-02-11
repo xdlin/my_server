@@ -1,0 +1,15 @@
+package huygens:service;
+
+
+interface host {
+    redis-get: func(id: string) -> string;
+}
+
+interface guest {
+    factor-get: func(id: string) -> string;
+}
+
+world factor-server {
+    import host;
+    export guest;
+}
