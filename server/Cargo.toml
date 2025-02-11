@@ -5,12 +5,8 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.95"
-axum = "0.8.1"
 cargo-features = "0.0.0"
 serde = { version = "1.0.217", features = ["derive"] }
 serde_json = "1.0.138"
 tokio = { version = "1.43.0", features = ["full"] }
-tower-http = "0.6.2"
-tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 wasm-runner = {path = "../wasm_runner"}
