@@ -6,7 +6,7 @@ use std::time::Duration;
 use tokio::sync::Mutex;
 use wasm_states::WasmStates;
 use wasmtime::{
-    component::{Component, Linker},
+    component::{Accessor, Component, Linker},
     Config, Engine, Store,
 };
 
@@ -17,14 +17,16 @@ mod handler {
         trappable_imports: true,
         path: "../wit",
         world: "factor-server",
-        //concurrent_imports: true,
-        //concurrent_exports: true,
+        concurrent_imports: true,
+        concurrent_exports: true,
         async: true,
     });
 }
 
 impl handler::huygens::service::host::Host for wasm_states::WasmStates {
-    async fn redis_get(&mut self, s: String) -> wasmtime::Result<String> {
+    type Data = Self;
+
+    async fn redis_get(_: &mut Accessor<Self>, s: String) -> wasmtime::Result<String> {
         tokio::time::sleep(Duration::from_millis(10)).await;
         Ok(format!("{s} - entered host - exited host"))
     }
@@ -71,8 +73,9 @@ impl WasmRuntime {
         println!("instantiate_async done");
         let res = instance
             .huygens_service_guest()
-            .call_factor_get(&mut *store, "test")
+            .call_factor_get(&mut *store, "test".to_owned())
             .await?;
+        let res = res.get(&mut *store).await;
         println!("call guest done");
         println!("{:?}", res);
 
@@ -92,8 +95,9 @@ impl WasmRuntime {
             .as_mut()
             .unwrap()
             .huygens_service_guest()
-            .call_factor_get(&mut *store, format!("{param}").as_str())
+            .call_factor_get(&mut *store, format!("{param}"))
             .await?;
+        let res = res.get(&mut *store).await;
         println!("{:?}", res);
         Ok("exec done".to_string())
     }
